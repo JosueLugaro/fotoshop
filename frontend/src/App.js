@@ -5,7 +5,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import Splash from "./components/Splash";
+import Home from "./components/Home";
 import FootNav from "./components/FootNavigation";
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path="/">
-            <Splash />
+            <Home />
           </Route>
           <Route exact path="/login">
             <LoginFormPage />
