@@ -38,7 +38,7 @@ const photoReducer = (state = initialState, action) => {
             return newState;
         case GET_GALLERY:
             newState = Object.assign({}, state);
-            newState.photos = [action.payload];
+            newState.photos = action.payload;
             newState.currentPhoto = [];
             return newState;
         case POST_PHOTO:
