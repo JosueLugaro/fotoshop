@@ -2,6 +2,7 @@ import "./Gallery.css"
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from "react";
 import { getAllPhotos } from '../../store/photos';
+import { NavLink } from "react-router-dom";
 
 function Gallery() {
 
@@ -15,7 +16,7 @@ function Gallery() {
     return (
         <div>
             {pics.map((pic) => {
-                return <img src={pic.imageUrl} alt="something" key={pic.id} className="image"/>
+                return <NavLink to={`/photos/${pic.id}`} key={pic.id}><img src={pic.imageUrl} alt="something" key={pic.id} className="image"/></NavLink>
             })}
         </div>
     );

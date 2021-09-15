@@ -20,10 +20,18 @@ const setGallery = (gallery) => {
 }
 
 export const getAllPhotos = () => async dispatch => {
-    let photos = await csrfFetch('api/photos');
+    let photos = await csrfFetch('/api/photos');
     let response = await photos.json();
 
     dispatch(setGallery(response));
+    return response;
+}
+
+export const getOnePhoto = (photoId) => async dispatch => {
+    let photo = await csrfFetch(`/api/photos/${photoId}`)
+    let response = await photo.json();
+
+    dispatch(setPhoto(response));
     return response;
 }
 
@@ -34,7 +42,7 @@ const photoReducer = (state = initialState, action) => {
     switch(action.type) {
         case GET_PHOTO:
             newState = Object.assign({}, state);
-            newState.currentPhoto = [action.payload];
+            newState.currentPhoto = action.payload;
             return newState;
         case GET_GALLERY:
             newState = Object.assign({}, state);

@@ -7,6 +7,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Home from "./components/Home";
 import FootNav from "./components/FootNavigation";
+import PhotoDetails from "./components/PhotoDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,9 @@ function App() {
           </Route>
           <Route exact path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route exact path="/photos/:photoId">
+            <PhotoDetails />
           </Route>
         </Switch>
       )}
