@@ -10,4 +10,10 @@ router.get('/', asyncHandler( async(req, res) => {
     res.json(photos);
 }));
 
+router.get('/:photoId', asyncHandler( async(req, res) => {
+    const photo = await db.Image.findByPk(req.params.photoId);
+
+    res.json(photo);
+}))
+
 module.exports = router;
