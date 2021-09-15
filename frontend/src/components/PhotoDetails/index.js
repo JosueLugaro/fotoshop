@@ -10,8 +10,6 @@ function PhotoDetails() {
 
     let pic = useSelector(state => state.photo.currentPhoto);
 
-    console.log(pic, "<-----------------------------------");
-
     useEffect(() => (
         dispatch(getOnePhoto(params.photoId))
     ), [dispatch, params.photoId])
