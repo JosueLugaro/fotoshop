@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import Gallery from "../Gallery"
+// import Gallery from "../Gallery"
 import "./Home.css";
 
 function Home() {
@@ -11,7 +11,7 @@ function Home() {
         page = (
             <div className="signed-in">
                 <h1>We're signed in!</h1>
-                <Gallery />
+                {/* <Gallery /> */}
             </div>
         );
     } else {
