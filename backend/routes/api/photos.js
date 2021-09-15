@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', asyncHandler( async(req, res) => {
     const photos = await Image.findAll();
 
-    res.send(photos);
+    res.json(photos);
 }));
 
 module.exports = router;
