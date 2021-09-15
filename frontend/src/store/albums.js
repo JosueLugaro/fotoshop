@@ -29,6 +29,14 @@ export const getAllAlbums = () => async dispatch => {
     return response;
 }
 
+export const getOneAlbum = (albumId) => async dispatch => {
+    let album = await csrfFetch(`/api/albums/${albumId}`);
+    let response = await album.json();
+
+    dispatch(setAlbum(response));
+    return response;
+}
+
 let initialState = { albums: [], currentAlbum: [] }
 
 const albumReducer = (state = initialState, action) => {

@@ -10,7 +10,7 @@ router.get('/', asyncHandler( async(req, res) => {
     res.json(albums);
 }));
 
-router.get('/:albumId', asyncHandler( async(req, res) => {
+router.get('/:albumId(\\d+)', asyncHandler( async(req, res) => {
     const album = await db.Album.findByPk(req.params.albumId);
 
     res.json(album);
