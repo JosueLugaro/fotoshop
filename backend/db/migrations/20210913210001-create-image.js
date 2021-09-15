@@ -22,9 +22,12 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      content: {
+      title: {
         type: Sequelize.STRING,
         allowNull: false
+      },
+      content: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

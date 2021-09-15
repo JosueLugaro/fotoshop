@@ -5,15 +5,15 @@ const db = require('../../db/models')
 const router = express.Router();
 
 router.get('/', asyncHandler( async(req, res) => {
-    const photos = await db.Image.findAll();
+    const albums = await db.Album.findAll();
 
-    res.json(photos);
+    res.json(albums);
 }));
 
-router.get('/:photoId(\\d+)', asyncHandler( async(req, res) => {
-    const photo = await db.Image.findByPk(req.params.photoId);
+router.get('/:albumId(\\d+)', asyncHandler( async(req, res) => {
+    const album = await db.Album.findByPk(req.params.albumId);
 
-    res.json(photo);
+    res.json(album);
 }))
 
 module.exports = router;

@@ -35,7 +35,7 @@ export const getOnePhoto = (photoId) => async dispatch => {
     return response;
 }
 
-let initialState = { photos: [], currentPhoto: []}
+let initialState = { photos: [], currentPhoto: [] }
 
 const photoReducer = (state = initialState, action) => {
     let newState;
