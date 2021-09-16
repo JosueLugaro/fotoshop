@@ -1,37 +1,28 @@
-import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from "react";
-import { getAllAlbums } from "../../store/albums";
 
 function UploadFormPage() {
-    const [album, setAlbum] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [title, setTitle] = useState('');
     const [validationErrors, setValidationErrors] = useState([]);
     const [notReady, setNotReady] = useState(true);
 
-    const dispatch = useDispatch();
-    let albumObj = useSelector(state => state.album);
-    let user = useSelector(state => state.session);
-    let allAlbums = albumObj.albums;
 
     useEffect(() => {
-        dispatch(getAllAlbums());
 
-        if(album && imageUrl && title) setNotReady(false);
+        if(imageUrl && title) setNotReady(false);
+        else setNotReady(true);
 
-    }, [dispatch, album, imageUrl, title]);
+    }, [imageUrl, title]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         let errors = [];
 
-        if (!album) errors.push("Please select an album.");
         if (!imageUrl) errors.push("Please input an image url.");
         if (!title) errors.push("Please input a title.");
 
         setValidationErrors(errors);
-        console.log("This is submitting")
     }
 
     return (
@@ -43,18 +34,6 @@ function UploadFormPage() {
                 ))}
             </ul>
             <form className="upload-form" onSubmit={handleSubmit}>
-                <label>
-                    <select
-                        value={album}
-                        onChange={(e) => setAlbum(e.target.value)}
-                        required
-                    >
-                        <option value="" disabled selected hidden>Select Album?</option>
-                        {allAlbums.map((album, index) => (
-                            album.userId === user.id ? <option value={album.id} key={index}>{album.title}</option> : <option value="">Please Add Albums</option>
-                        ))}
-                    </select>
-                </label>
                 <label>
                     Image Url:
                     <input
