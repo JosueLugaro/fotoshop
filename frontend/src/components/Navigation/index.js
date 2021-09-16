@@ -13,6 +13,7 @@ function Navigation({ isLoaded }){
       <>
         <ProfileButton user={sessionUser} />
         <NavLink to="/upload">Upload</NavLink>
+        <NavLink to="/album_upload">Create an album</NavLink>
       </>
     );
   } else {
