@@ -10,6 +10,7 @@ function PhotoDetails() {
     let history = useHistory();
 
     let pic = useSelector(state => state.photo.currentPhoto);
+    let user = useSelector(state => state.session.user);
 
     useEffect(() => (
         dispatch(getOnePhoto(params.photoId))
@@ -28,7 +29,7 @@ function PhotoDetails() {
             <h1>Photo details! {pic.id}</h1>
             <img src={pic.imageUrl} alt="stuff"/>
             <form onSubmit={handleSubmit}>
-                <button type="submit">Delete Photo</button>
+                {user.id === pic.userId ? <button type="submit" >Delete Photo</button> : null}
             </form>
         </div>
     )
