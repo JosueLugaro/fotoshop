@@ -6,11 +6,11 @@ import { postPhoto } from "../../store/photos";
 function UploadFormPage() {
     const [imageUrl, setImageUrl] = useState('');
     const [title, setTitle] = useState('');
-    const [albumId] = useState(0);
+    const [albumId] = useState(1);
     const [description, setDescription] = useState('');
     const [validationErrors, setValidationErrors] = useState([]);
     const [notReady, setNotReady] = useState(true);
-    const user = useSelector(state => state.session);
+    const userObj = useSelector(state => state.session);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -32,7 +32,7 @@ function UploadFormPage() {
         setValidationErrors(errors);
 
         let formData = {
-            userId: user.id,
+            userId: userObj.user.id,
             albumId,
             imageUrl,
             title,
@@ -55,8 +55,8 @@ function UploadFormPage() {
                 ))}
             </ul>
             <form className="upload-form" onSubmit={handleSubmit}>
-                <input type="hidden" name="userId" value={user.id}/>
-                <input type="hidden" name="albumId" value={albumId} />
+                {/* <input type="hidden" name="userId" value={userObj.user.id}/>
+                <input type="hidden" name="albumId" value={albumId} /> */}
                 <label>
                     Image Url:
                     <input

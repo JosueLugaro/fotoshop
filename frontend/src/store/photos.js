@@ -45,7 +45,7 @@ export const getOnePhoto = (photoId) => async dispatch => {
 export const postPhoto = (photoObj) => async dispatch => {
     let newPhoto = await csrfFetch('/api/photos/new', {
         method: "POST",
-        body: photoObj
+        body: JSON.stringify(photoObj)
     })
 
     let response = await newPhoto.json();
