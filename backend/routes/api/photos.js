@@ -16,4 +16,17 @@ router.get('/:photoId(\\d+)', asyncHandler( async(req, res) => {
     res.json(photo);
 }))
 
+router.post('/new', asyncHandler( async(req, res) => {
+    const { userId, albumId, imageUrl, title, description } = req.body;
+    const newPhoto = await db.Image.create({
+        userId,
+        albumId,
+        imageUrl,
+        title,
+        content: description
+    });
+
+    res.json(newPhoto);
+}))
+
 module.exports = router;
