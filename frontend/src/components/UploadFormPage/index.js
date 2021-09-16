@@ -8,7 +8,7 @@ function UploadFormPage() {
     const [imageUrl, setImageUrl] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [album, setAlbum] = useState('');
+    const [album, setAlbum] = useState(null);
     const [validationErrors, setValidationErrors] = useState([]);
     const [notReady, setNotReady] = useState(true);
     const userObj = useSelector(state => state.session);
@@ -41,7 +41,7 @@ function UploadFormPage() {
 
         let formData = {
             userId: userObj.user.id,
-            album,
+            albumId: album,
             imageUrl,
             title,
             description

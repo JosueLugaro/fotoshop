@@ -17,9 +17,10 @@ router.get('/:photoId(\\d+)', asyncHandler( async(req, res) => {
 }))
 
 router.post('/new', asyncHandler( async(req, res) => {
-    const { userId, imageUrl, title, description } = req.body;
+    const { userId, albumId, imageUrl, title, description } = req.body;
     const newPhoto = await db.Image.create({
         userId,
+        albumId,
         imageUrl,
         title,
         content: description
