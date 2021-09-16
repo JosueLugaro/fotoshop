@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { postPhoto } from "../../store/photos";
 
 function UploadFormPage() {
     const [imageUrl, setImageUrl] = useState('');
     const [title, setTitle] = useState('');
+    const [albumId] = useState(0);
+    const [description, setDescription] = useState('');
     const [validationErrors, setValidationErrors] = useState([]);
     const [notReady, setNotReady] = useState(true);
-
+    const user = useSelector(state => state.session);
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     useEffect(() => {
 
@@ -23,6 +30,20 @@ function UploadFormPage() {
         if (!title) errors.push("Please input a title.");
 
         setValidationErrors(errors);
+
+        let formData = {
+            userId: user.id,
+            albumId,
+            imageUrl,
+            title,
+            description
+        }
+
+        if(!errors.length) {
+            dispatch(postPhoto(formData));
+        }
+
+        history.push('/');
     }
 
     return (
@@ -34,10 +55,13 @@ function UploadFormPage() {
                 ))}
             </ul>
             <form className="upload-form" onSubmit={handleSubmit}>
+                <input type="hidden" name="userId" value={user.id}/>
+                <input type="hidden" name="albumId" value={albumId} />
                 <label>
                     Image Url:
                     <input
                         type="text"
+                        name="imageUrl"
                         value={imageUrl}
                         onChange={(e) => setImageUrl(e.target.value)}
                         required
@@ -47,6 +71,7 @@ function UploadFormPage() {
                     Title:
                     <input
                         type="text"
+                        name="title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         required
@@ -56,6 +81,9 @@ function UploadFormPage() {
                     Description:
                     <input
                         type="text"
+                        name="description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                         placeholder="optional"
                     />
                 </label>

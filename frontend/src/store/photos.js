@@ -19,6 +19,13 @@ const setGallery = (gallery) => {
     }
 }
 
+const setAddition = (newPhoto) => {
+    return {
+        type: POST_PHOTO,
+        payload: newPhoto
+    }
+}
+
 export const getAllPhotos = () => async dispatch => {
     let photos = await csrfFetch('/api/photos');
     let response = await photos.json();
@@ -32,6 +39,17 @@ export const getOnePhoto = (photoId) => async dispatch => {
     let response = await photo.json();
 
     dispatch(setPhoto(response));
+    return response;
+}
+
+export const postPhoto = (photoObj) => async dispatch => {
+    let newPhoto = await csrfFetch('/api/photos/new', {
+        method: "POST",
+        body: photoObj
+    })
+
+    let response = await newPhoto.json();
+    dispatch(setAddition(response));
     return response;
 }
 
