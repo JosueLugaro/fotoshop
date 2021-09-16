@@ -29,10 +29,10 @@ router.post('/new', asyncHandler( async(req, res) => {
     res.json(newPhoto);
 }))
 
-router.delete('/:photoId(\\d+)/delete', asyncHandler(async(req, res) => {
+router.post('/:photoId(\\d+)/delete', asyncHandler(async(req, res) => {
     const photo = await db.Image.findByPk(req.params.photoId);
     await photo.destroy();
-    
+
     res.redirect("/");
 }))
 
