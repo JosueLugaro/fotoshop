@@ -11,6 +11,7 @@ function UploadFormPage() {
 
     const dispatch = useDispatch();
     let albumObj = useSelector(state => state.album);
+    let user = useSelector(state => state.session);
     let allAlbums = albumObj.albums;
 
     useEffect(() => {
@@ -50,7 +51,7 @@ function UploadFormPage() {
                     >
                         <option value="" disabled selected hidden>Select Album?</option>
                         {allAlbums.map((album, index) => (
-                            <option value={album.id} key={index}>{album.title}</option>
+                            album.userId === user.id ? <option value={album.id} key={index}>{album.title}</option> : <option value="">Please Add Albums</option>
                         ))}
                     </select>
                 </label>
