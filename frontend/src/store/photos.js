@@ -26,6 +26,13 @@ const setAddition = (newPhoto) => {
     }
 }
 
+const setRemoval = (photoId) => {
+    return {
+        type: DELETE_PHOTO,
+        payload: photoId
+    }
+}
+
 export const getAllPhotos = () => async dispatch => {
     let photos = await csrfFetch('/api/photos');
     let response = await photos.json();
@@ -53,6 +60,12 @@ export const postPhoto = (photoObj) => async dispatch => {
     return response;
 }
 
+export const deletePhoto = (photoId) => async dispatch => {
+    let photo = await csrfFetch(`/api/photos/${photoId}`)
+    dispatch(setRemoval(photoId));
+    return photo;
+}
+
 let initialState = { photos: [], currentPhoto: [] }
 
 const photoReducer = (state = initialState, action) => {
@@ -74,8 +87,8 @@ const photoReducer = (state = initialState, action) => {
             return newState;
         case DELETE_PHOTO:
             newState = Object.assign({}, state);
-            newState.filter((photo) => (
-                photo.id !== action.payload.id
+            newState.photos = newState.photos.filter((photo) => (
+                photo.id !== action.payload
             ));
             return newState;
         default:
