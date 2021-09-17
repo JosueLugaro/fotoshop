@@ -43,7 +43,7 @@ router.post('/:photoId(\\d+)/update', asyncHandler(async(req, res) => {
 
     await photo.save();
 
-    return photo;
+    res.json(photo);
 }))
 
 module.exports = router;

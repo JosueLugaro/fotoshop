@@ -24,7 +24,7 @@ router.post('/', asyncHandler( async(req, res) => {
         title
     });
 
-    return album;
+    res.json({album});
 }))
 
 module.exports = router;

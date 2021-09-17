@@ -11,6 +11,7 @@ function AlbumFormPage() {
     let pics = useSelector(state => state.photo.photos);
     let user = useSelector(state => state.session.user);
     let albums = useSelector(state => state.albums);
+    let history = useHistory();
     let possiblePhotos = pics.filter((photo) => (
         photo.albumId === null && photo.userId === user.id
     ));
@@ -45,9 +46,11 @@ function AlbumFormPage() {
 
         let album = await dispatch(createAlbum(albumObj));
         if (album) {
-            console.log(album, "<---------------------------------------------");
+            // console.log(album.album.id, "<---------------------------------------------");
+            dispatch(updatePhoto(selectedPhotos, album.album.id));
         }
-        // dispatch(updatePhoto(selectedPhotos, ))
+
+        // history.push('/');
     }
 
     return (

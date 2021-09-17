@@ -45,12 +45,12 @@ export const getOneAlbum = (albumId) => async dispatch => {
 }
 
 export const createAlbum = (albumObj) => async dispatch => {
-    let newAlbum = await csrfFetch('/api/albums', {
+    let Album = await csrfFetch('/api/albums', {
         method: 'POST',
         body: JSON.stringify(albumObj)
     });
 
-    let response = await newAlbum.json();
+    let response = await Album.json();
     dispatch(newAlbum(response));
     return response;
 }
