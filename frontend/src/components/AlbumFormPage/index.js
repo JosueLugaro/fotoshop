@@ -1,26 +1,26 @@
 import { getAllPhotos } from '../../store/photos';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { updatePhoto } from "../../store/photos";
+import { getAllAlbums, createAlbum } from '../../store/albums';
 import "./AlbumFormPage.css";
 
 function AlbumFormPage() {
     const dispatch = useDispatch();
     let pics = useSelector(state => state.photo.photos);
     let user = useSelector(state => state.session.user);
+    let albums = useSelector(state => state.albums);
     let possiblePhotos = pics.filter((photo) => (
         photo.albumId === null && photo.userId === user.id
     ));
     let [selectedPhotos, setSelectedPhotos] = useState([]);
+    let [title, setTitle] = useState('');
 
-    useEffect(() => (
-        dispatch(getAllPhotos())
-    ), [dispatch]);
-
-    // useEffect(() => {
-
-
-    //     setSelectedPhotos(newArray);
-    // }, [possiblePhotos]);
+    useEffect(() => {
+        dispatch(getAllPhotos());
+        dispatch(getAllAlbums());
+    }, [dispatch]);
 
     const handleChange = (photoId) => {
         let newArray = selectedPhotos.slice();
@@ -35,8 +35,19 @@ function AlbumFormPage() {
         setSelectedPhotos(newArray);
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
+        let albumObj = {
+            userId: user.id,
+            title
+        }
+
+        let album = await dispatch(createAlbum(albumObj));
+        if (album) {
+            console.log(album, "<---------------------------------------------");
+        }
+        // dispatch(updatePhoto(selectedPhotos, ))
     }
 
     return (
@@ -45,7 +56,7 @@ function AlbumFormPage() {
             <form onSubmit={handleSubmit}>
                 <label>
                     Album Name:
-                    <input type="text"/>
+                    <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
                 </label>
                 <label>
                     Photos:

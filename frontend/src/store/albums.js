@@ -21,6 +21,13 @@ const setAlbum = (album) => {
     }
 }
 
+const newAlbum = (album) => {
+    return {
+        type: POST_ALBUM,
+        payload: album
+    }
+}
+
 export const getAllAlbums = () => async dispatch => {
     let albums = await csrfFetch('/api/albums');
     let response = await albums.json();
@@ -34,6 +41,17 @@ export const getOneAlbum = (albumId) => async dispatch => {
     let response = await album.json();
 
     dispatch(setAlbum(response));
+    return response;
+}
+
+export const createAlbum = (albumObj) => async dispatch => {
+    let newAlbum = await csrfFetch('/api/albums', {
+        method: 'POST',
+        body: JSON.stringify(albumObj)
+    });
+
+    let response = await newAlbum.json();
+    dispatch(newAlbum(response));
     return response;
 }
 
@@ -52,6 +70,9 @@ const albumReducer = (state = initialState, action) => {
             newState.currentAlbum = [];
             return newState;
         case POST_ALBUM:
+            newState = Object.assign({}, state);
+            newState.albums.push(action.payload);
+            newState.currentAlbum = action.payload;
             return newState;
         case POST_TO_ALBUM:
             return newState;
