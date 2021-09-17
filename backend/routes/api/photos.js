@@ -36,4 +36,14 @@ router.post('/:photoId(\\d+)/delete', asyncHandler(async(req, res) => {
     res.redirect("/");
 }))
 
+router.post('/:photoId(\\d+)/update', asyncHandler(async(req, res) => {
+    const { albumId } = req.body;
+    const photo = await db.Image.findByPk(req.params.photoId);
+    photo.albumId = albumId;
+
+    await photo.save();
+
+    res.json(photo);
+}))
+
 module.exports = router;

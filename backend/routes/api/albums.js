@@ -16,4 +16,15 @@ router.get('/:albumId(\\d+)', asyncHandler( async(req, res) => {
     res.json(album);
 }))
 
+router.post('/', asyncHandler( async(req, res) => {
+    const { userId, title } = req.body;
+
+    const album = await db.Album.create({
+        userId,
+        title
+    });
+
+    res.json({album});
+}))
+
 module.exports = router;

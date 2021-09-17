@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const GET_PHOTO = 'photos/GET_ONE';
 const GET_GALLERY = 'photos/GET_ALL';
 const POST_PHOTO = 'photos/POST';
+const UPDATE_PHOTO = 'photo/UPDATE';
 const DELETE_PHOTO = 'photos/DELETE';
 
 const setPhoto = (photo) => {
@@ -30,6 +31,13 @@ const setRemoval = (photoId) => {
     return {
         type: DELETE_PHOTO,
         payload: photoId
+    }
+}
+
+const setUpdate = (photoId, albumId) => {
+    return {
+        type: UPDATE_PHOTO,
+        payload: {photoId, albumId}
     }
 }
 
@@ -68,6 +76,18 @@ export const deletePhoto = (photoId) => async dispatch => {
     return photo;
 }
 
+export const updatePhoto = (photoIdArray, albumId) => async dispatch => {
+    photoIdArray.forEach(async (id) => {
+        let photo = await csrfFetch(`/api/photos/${id}/update`, {
+            method: "POST",
+            body: JSON.stringify({albumId})
+        });
+        dispatch(setUpdate(id, albumId));
+    })
+
+    return;
+}
+
 let initialState = { photos: [], currentPhoto: [] }
 
 const photoReducer = (state = initialState, action) => {
@@ -86,6 +106,19 @@ const photoReducer = (state = initialState, action) => {
             newState = Object.assign({}, state);
             newState.photos.push(action.payload);
             newState.currentPhoto.push(action.payload);
+            return newState;
+        case UPDATE_PHOTO:
+            newState = Object.assign({}, state);
+            let photo = newState.photos.filter((photo) => (
+                photo.id === action.payload.photoId
+            ))
+            photo[0].albumId = action.payload.albumId;
+
+            newState.photos = newState.photos.filter((photo) => (
+                photo.id !== action.payload.photoId
+            ));
+
+            newState.photos.push(photo[0]);
             return newState;
         case DELETE_PHOTO:
             newState = Object.assign({}, state);
