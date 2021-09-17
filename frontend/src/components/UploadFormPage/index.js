@@ -11,6 +11,7 @@ function UploadFormPage() {
     const [album, setAlbum] = useState(null);
     const [validationErrors, setValidationErrors] = useState([]);
     const [notReady, setNotReady] = useState(true);
+    const [tooLong, setTooLong] = useState(false);
     const userObj = useSelector(state => state.session);
     const albumObj = useSelector(state => state.album);
     const dispatch = useDispatch();
@@ -22,6 +23,13 @@ function UploadFormPage() {
 
         if(imageUrl && title) setNotReady(false);
         else setNotReady(true);
+
+        if(imageUrl.length > 255){
+            setNotReady(true)
+            setTooLong(true)
+        } else {
+            setTooLong(false)
+        }
 
     }, [imageUrl, title, dispatch]);
 
@@ -61,6 +69,7 @@ function UploadFormPage() {
                 {validationErrors && validationErrors.map((error) => (
                     <li key={error}>{error}</li>
                 ))}
+                {tooLong ? <li>Please use a shorter URL (under 255 characters)</li> : null}
             </ul>
             <form className="upload-form" onSubmit={handleSubmit}>
                 <label>
