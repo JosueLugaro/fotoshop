@@ -80,7 +80,7 @@ export const updatePhoto = (photoIdArray, albumId) => async dispatch => {
     photoIdArray.forEach(async (id) => {
         let photo = await csrfFetch(`/api/photos/${id}/update`, {
             method: "POST",
-            body: {albumId}
+            body: JSON.stringify({albumId})
         });
         dispatch(setUpdate(id, albumId));
     })
