@@ -14,11 +14,6 @@ function PhotoDetails() {
     let user = useSelector(state => state.session.user);
     let albums = useSelector(state => state.album.albums);
 
-    // let albumIdx = albums.indexOf(pic.albumId);
-
-    // let photoAlbum = albums[albumIdx];
-    // console.log(albums);
-
 
     let photoAlbumArray = albums.filter((album) => (
         album.id === pic.albumId
@@ -26,7 +21,6 @@ function PhotoDetails() {
 
     let photoAlbum = photoAlbumArray[0];
 
-    // console.log(photoAlbum)
 
     useEffect(() => {
         dispatch(getOnePhoto(params.photoId));

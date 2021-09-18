@@ -11,6 +11,7 @@ import PhotoDetails from "./components/PhotoDetails";
 import UploadFormPage from "./components/UploadFormPage";
 import AlbumFormPage from "./components/AlbumFormPage";
 import AlbumDetails from "./components/AlbumDetails";
+import AlbumEditForm from "./components/AlbumEditForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +45,9 @@ function App() {
           </Route>
           <Route exact path="/albums/:albumId">
             <AlbumDetails />
+          </Route>
+          <Route exact path="/albums/:albumId/edit">
+            <AlbumEditForm />
           </Route>
         </Switch>
       )}
