@@ -16,7 +16,7 @@ function Gallery() {
     return (
         <div>
             {pics.map((pic) => {
-                return <NavLink to={`/photos/${pic.id}`} key={pic.id}><img src={pic.imageUrl} alt="something" key={pic.id} className="image"/></NavLink>
+                return <NavLink to={`/photos/${pic.id}`} key={pic.id}><img src={pic.imageUrl} alt={pic.title} key={pic.id} className="image"/></NavLink>
             })}
         </div>
     );

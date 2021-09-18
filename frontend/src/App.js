@@ -10,6 +10,7 @@ import FootNav from "./components/FootNavigation";
 import PhotoDetails from "./components/PhotoDetails";
 import UploadFormPage from "./components/UploadFormPage";
 import AlbumFormPage from "./components/AlbumFormPage";
+import AlbumDetails from "./components/AlbumDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,9 @@ function App() {
           </Route>
           <Route exact path="/photos/:photoId">
             <PhotoDetails />
+          </Route>
+          <Route exact path="/albums/:albumId">
+            <AlbumDetails />
           </Route>
         </Switch>
       )}
