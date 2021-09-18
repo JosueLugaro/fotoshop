@@ -1,7 +1,8 @@
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from "react";
 import { getOnePhoto, deletePhoto } from '../../store/photos';
+import { getAllAlbums } from "../../store/albums";
 import "./PhotoDetails.css";
 
 function PhotoDetails() {
@@ -11,10 +12,26 @@ function PhotoDetails() {
 
     let pic = useSelector(state => state.photo.currentPhoto);
     let user = useSelector(state => state.session.user);
+    let albums = useSelector(state => state.album.albums);
 
-    useEffect(() => (
-        dispatch(getOnePhoto(params.photoId))
-    ), [dispatch, params.photoId])
+    // let albumIdx = albums.indexOf(pic.albumId);
+
+    // let photoAlbum = albums[albumIdx];
+    // console.log(albums);
+
+
+    let photoAlbumArray = albums.filter((album) => (
+        album.id === pic.albumId
+    ))
+
+    let photoAlbum = photoAlbumArray[0];
+
+    // console.log(photoAlbum)
+
+    useEffect(() => {
+        dispatch(getOnePhoto(params.photoId));
+        dispatch(getAllAlbums());
+    }, [dispatch, params.photoId])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -27,7 +44,12 @@ function PhotoDetails() {
     return (
         <div className="photo-details">
             <h1>Photo details! {pic.id}</h1>
-            <img src={pic.imageUrl} alt="stuff"/>
+            <img src={pic.imageUrl} alt={pic.title}/>
+            {
+                photoAlbum
+                    ? <p>This photo belongs to the <NavLink to={`/albums/${photoAlbum?.id}`}>{photoAlbum?.title}</NavLink> album</p>
+                    : <p>This photo does not belong to an album yet</p>
+            }
             <form onSubmit={handleSubmit}>
                 {user.id === pic.userId ? <button type="submit" >Delete Photo</button> : null}
             </form>
