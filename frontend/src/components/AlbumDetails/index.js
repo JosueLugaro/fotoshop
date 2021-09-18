@@ -27,7 +27,7 @@ function AlbumDetails() {
         <div className="album-details-container">
             <h1>This is the albums details page for the {album.title} album</h1>
             {albumPhotos && albumPhotos.map((photo) => (
-                <img src={photo.imageUrl} alt={photo.title} className="album-photo"/>
+                <NavLink to={`/photos/${photo.id}`}><img src={photo.imageUrl} alt={photo.title} className="album-photo"/></NavLink>
             ))}
         </div>
     )
