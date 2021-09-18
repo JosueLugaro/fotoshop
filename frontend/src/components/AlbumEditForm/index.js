@@ -80,7 +80,7 @@ function AlbumEditForm() {
                 <form className="deletion-form" onSubmit={handleDeletion}>
                     {albumPhotos && albumPhotos.map((photo) => (
                         <div className="edit-albums-photos-container">
-                            <img src={photo.imageUrl} alt={photo.title} className="edit-album-photo" key={photo.id}/>
+                            <img src={photo.imageUrl} alt={photo.title} className="edit-album-photo" key={photo.title}/>
                             <input type="checkbox" value={photo.id} key={photo.id} className="option-input" checked={selectedDeletionPhotos.includes(photo.id)} onChange={(e) => handleChangeDeletion(photo.id)}/>
                         </div>
                     ))}
@@ -91,9 +91,9 @@ function AlbumEditForm() {
 
             <div className="addition-container" onSubmit={handleAddition}>
                 <form className="addition-form">
-                    {possiblePhotos.map((photo, index) => (
-                        <div className="edit-albums-photos-container" key={index}>
-                            <img src={photo.imageUrl} alt="stuff" className="edit-album-photo" key={index}/>
+                    {possiblePhotos.map((photo) => (
+                        <div className="edit-albums-photos-container">
+                            <img src={photo.imageUrl} alt="stuff" className="edit-album-photo" key={photo.title}/>
                             <input type="checkbox" value={photo.id} key={photo.id} className="option-input" checked={selectedAdditionPhotos.includes(photo.id)} onChange={(e) => handleChangeAddition(photo.id)}/>
                         </div>
                     ))}
