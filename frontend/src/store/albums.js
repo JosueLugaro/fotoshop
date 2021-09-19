@@ -28,6 +28,13 @@ const newAlbum = (album) => {
     }
 }
 
+const setRemoval = (albumId) => {
+    return {
+        type: DELETE_ALBUM,
+        payload: albumId
+    }
+}
+
 export const getAllAlbums = () => async dispatch => {
     let albums = await csrfFetch('/api/albums');
     let response = await albums.json();
@@ -55,6 +62,15 @@ export const createAlbum = (albumObj) => async dispatch => {
     return response;
 }
 
+export const deleteAlbum = (albumId) => async dispatch => {
+    let album = await csrfFetch(`/api/albums/${albumId}/delete`, {
+        method: "POST"
+    });
+
+    dispatch(setRemoval(albumId));
+    return album;
+}
+
 let initialState = { albums: [], currentAlbum: [] }
 
 const albumReducer = (state = initialState, action) => {
@@ -77,6 +93,10 @@ const albumReducer = (state = initialState, action) => {
         case POST_TO_ALBUM:
             return newState;
         case DELETE_ALBUM:
+            newState = Object.assign({}, state);
+            newState.albums = newState.albums.filter((album) => (
+                album.id !== action.payload
+            ));
             return newState;
         case DELETE_FROM_ALBUM:
             return newState;

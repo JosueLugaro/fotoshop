@@ -1,13 +1,14 @@
-import { useParams, NavLink } from "react-router-dom";
+import { useParams, NavLink, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState } from "react";
-import { getOneAlbum } from "../../store/albums";
-import { getAllPhotos } from '../../store/photos';
+import { useEffect } from "react";
+import { getOneAlbum, deleteAlbum } from "../../store/albums";
+import { getAllPhotos, updatePhoto } from '../../store/photos';
 import "./AlbumDetails.css";
 
 function AlbumDetails() {
     const params = useParams();
     const dispatch = useDispatch();
+    let history = useHistory();
 
     let user = useSelector(state => state.session.user)
     let album = useSelector(state => state.album.currentAlbum);
@@ -34,6 +35,22 @@ function AlbumDetails() {
         dispatch(getAllPhotos());
     }, [dispatch, album])
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        let albumPhotosIds = [];
+
+        albumPhotos.forEach((photo) => {
+            albumPhotosIds.push(photo.id);
+        })
+
+        await dispatch(updatePhoto(albumPhotosIds, null));
+
+        dispatch(deleteAlbum(album.id))
+
+        history.push('/');
+    }
+
 
     return (
         <div className="album-details-container">
@@ -44,6 +61,12 @@ function AlbumDetails() {
                     <NavLink to={`/photos/${photo.id}`}><img src={photo.imageUrl} alt={photo.title} className="album-photo"/></NavLink>
                 </div>
             ))}
+            {user.id === album.userId
+                ? <form onSubmit={handleSubmit}>
+                    <button type="submit">Delete this album</button>
+                  </form>
+                : null
+            }
         </div>
     )
 }
