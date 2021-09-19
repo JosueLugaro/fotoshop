@@ -85,7 +85,7 @@ function AlbumEditForm() {
                         </div>
                     ))}
 
-                    <button type="submit">Delete These Photos From {album.title}Album</button>
+                    <button type="submit">Delete these photos from {album.title} album</button>
                 </form>
             </div>
 
