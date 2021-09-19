@@ -78,6 +78,7 @@ export const deletePhoto = (photoId) => async dispatch => {
 
 export const updatePhoto = (photoIdArray, albumId) => async dispatch => {
     photoIdArray.forEach(async (id) => {
+        //eslint-disable-next-line
         let photo = await csrfFetch(`/api/photos/${id}/update`, {
             method: "POST",
             body: JSON.stringify({albumId: albumId})
