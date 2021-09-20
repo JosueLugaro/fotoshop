@@ -1,3 +1,75 @@
+body {
+    background-image: url(https://picsum.photos/1989/1260);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
 .home-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signed-in {
     grid-area: Body;
+}
+
+.signed-out {
+    grid-area: Body;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.inspiring-heading {
+   font-family: Proxima Nova,helvetica neue,helvetica,arial,sans-serif;
+   font-size: 56px;
+   line-height: 56px;
+   /* font-weight: 600; */
+   color: #fff;
+   margin: 30px;
+}
+
+.inspiring-text {
+    font-family: Proxima Nova,helvetica neue,helvetica,arial,sans-serif;
+    margin-bottom: 10px;
+    font-size: 26px;
+    line-height: 32px;
+    /* font-weight: 600; */
+    color: #fff;
+}
+
+.inspiring-text-two {
+    font-family: Proxima Nova,helvetica neue,helvetica,arial,sans-serif;
+    margin-bottom: 30px;
+    font-size: 26px;
+    line-height: 32px;
+    /* font-weight: 600; */
+    color: #fff;
+}
+
+.start-for-free {
+    height: 64px;
+    line-height: 64px;
+    font-size: 24px;
+    font-weight: 800;
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 0 20px;
+    vertical-align: top;
+    font-family: Proxima Nova,helvetica neue,helvetica,arial,sans-serif;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #FFFFFF;
+    text-align: center;
+    color: black;
+}
+
+.start-for-free:hover {
+    transition: color .15s ease-in-out;
+    color: rgba(0, 0, 0, .5);
 }
