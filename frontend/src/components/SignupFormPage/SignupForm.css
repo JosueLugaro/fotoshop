@@ -1,3 +1,7 @@
+body {
+    background-image: none;
+}
+
 .signup-form {
     grid-area: Body;
 }

@@ -1,0 +1,5 @@
+.splash-footer-nav {
+    grid-area: Footer;
+    position: absolute;
+    bottom: 0;
+}

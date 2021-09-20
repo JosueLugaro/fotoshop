@@ -23,39 +23,37 @@ function App() {
 
   return (
     <>
-      <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
           <Route exact path="/">
-            <Home />
+            <Home isLoaded={isLoaded}/>
           </Route>
           <Route exact path="/login">
-            <LoginFormPage />
+            <LoginFormPage isLoaded={isLoaded}/>
           </Route>
           <Route exact path="/signup">
-            <SignupFormPage />
+            <SignupFormPage isLoaded={isLoaded}/>
           </Route>
           <Route exact path="/upload">
-            <UploadFormPage />
+            <UploadFormPage isLoaded={isLoaded}/>
           </Route>
           <Route exact path="/album_upload">
-            <AlbumFormPage />
+            <AlbumFormPage isLoaded={isLoaded}/>
           </Route>
           <Route exact path="/photos/:photoId">
-            <PhotoDetails />
+            <PhotoDetails isLoaded={isLoaded}/>
           </Route>
           <Route exact path="/albums">
-            <AlbumGallery />
+            <AlbumGallery isLoaded={isLoaded}/>
           </Route>
           <Route exact path="/albums/:albumId">
-            <AlbumDetails />
+            <AlbumDetails isLoaded={isLoaded}/>
           </Route>
           <Route exact path="/albums/:albumId/edit">
-            <AlbumEditForm />
+            <AlbumEditForm isLoaded={isLoaded}/>
           </Route>
         </Switch>
       )}
-      <FootNav />
     </>
   );
 }

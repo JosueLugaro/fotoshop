@@ -1,0 +1,4 @@
+.splash-nav-bar {
+    grid-area: Header;
+    position: absolute;
+}

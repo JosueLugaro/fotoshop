@@ -1,26 +1,23 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import ProfileButton from './ProfileButton';
-import './Navigation.css';
+// import ProfileButton from './ProfileButton';
+import './SplashNavigation.css';
 
-function Navigation({ isLoaded }){
+function SplashNavigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
 
   let sessionLinks;
-  
+
     sessionLinks = (
       <>
-        <ProfileButton user={sessionUser} />
-        <NavLink to="/upload">Upload</NavLink>
-        <NavLink to="/album_upload">Create an album</NavLink>
-        <NavLink to="/albums">Albums</NavLink>
+        <NavLink to="/login">Log In</NavLink>
+        <NavLink to="/signup">Sign Up</NavLink>
       </>
     );
 
-
   return (
-    <ul className="nav-bar">
+    <ul className="splash-nav-bar">
       <li>
         <NavLink exact to="/">Home</NavLink>
         {isLoaded && sessionLinks}
@@ -29,4 +26,4 @@ function Navigation({ isLoaded }){
   );
 }
 
-export default Navigation;
+export default SplashNavigation;
